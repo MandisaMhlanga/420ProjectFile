@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fabrix Fashion - Checkout</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8d111c;
+            --secondary: #2f3542;
+            --accent: #525252;
+            --light: #f1f2f6;
+            --dark: #2f3542;
+            --text: #2f3542;
+            --text-light: #f1f2f6;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            padding-top: 100px;
+            background-color: #f9f9f9;
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        /* Header Styles - Matches Homepage */
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+        }
+        
+        .site-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .main-nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        .main-nav a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            position: relative;
+            padding: 10px 0;
+            transition: var(--transition);
+        }
+        
+        .main-nav a:hover {
+            color: var(--primary);
+        }
+        
+        .cart-count {
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            padding: 2px 8px;
+            font-size: 0.8rem;
+            margin-left: 5px;
+        }
+        
+        /* Main Content Container */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        /* Checkout Sections */
+        .checkout-section {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            color: var(--dark);
+            font-weight: 600;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light);
+        }
+        
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(141, 17, 28, 0.2);
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        /* Order Summary */
+        .order-summary {
+            background: var(--light);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .order-total {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid #ddd;
+        }
+        
+        .total-amount {
+            color: var(--primary);
+        }
+        
+        /* Payment Methods */
+        .payment-method {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .payment-method:hover {
+            border-color: var(--primary);
+        }
+        
+        .payment-method input {
+            width: auto;
+            margin-right: 15px;
+        }
+        
+        .payment-method label {
+            margin-bottom: 0;
+            flex: 1;
+            cursor: pointer;
+        }
+        
+        .payment-icon {
+            width: 40px;
+            height: 25px;
+            object-fit: contain;
+        }
+        
+        /* Buttons - Matches Homepage */
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            width: 100%;
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .btn:hover {
+            background-color: var(--accent);
+            transform: translateY(-2px);
+        }
+        
+        /* Order Confirmation */
+        .order-confirmation {
+            text-align: center;
+            padding: 50px;
+            display: none;
+        }
+        
+        .confirmation-icon {
+            font-size: 4rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .confirmation-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+        
+        .order-number {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin: 20px 0;
+            font-weight: 600;
+        }
+        
+        /* Footer - Matches Homepage */
+        .site-footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 15px 20px;
+            }
+            
+            .main-nav ul {
+                gap: 15px;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .order-confirmation {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-container">
+            <h1 class="site-title">Fabrix Fashion</h1>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Shop</a></li>
+                    <li><a href="cart.html" class="cart-link">Cart <span class="cart-count">2</span></a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <!-- Checkout Form Section -->
+        <section id="checkout-form" class="checkout-section">
+            <h2 class="section-title">Shipping Information</h2>
+            <form id="checkoutForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input type="text" id="firstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" id="lastName" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <input type="text" id="address" required>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="city">City</label>
+                        <input type="text" id="city" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="zipCode">ZIP Code</label>
+                        <input type="text" id="zipCode" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="country">Country</label>
+                    <select id="country" required>
+                        <option value="">Select Country</option>
+                        <option value="PH">Philippines</option>
+                        <option value="US">United States</option>
+                        <option value="UK">United Kingdom</option>
+                        <option value="CA">Canada</option>
+                        <option value="AU">Australia</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" required>
+                </div>
+                
+                <h2 class="section-title" style="margin-top: 40px;">Payment Method</h2>
+                
+                <div class="payment-method">
+                    <input type="radio" id="creditCard" name="payment" value="credit" checked>
+                    <label for="creditCard">Credit/Debit Card</label>
+                    <img src="https://cdn-icons-png.flaticon.com/512/196/196578.png" alt="Cards" class="payment-icon">
+                </div>
+                
+                <div class="payment-method">
+                    <input type="radio" id="gcash" name="payment" value="gcash">
+                    <label for="gcash">GCash</label>
+                    <img src="https://logos-download.com/wp-content/uploads/2021/01/GCash_Logo.png" alt="GCash" class="payment-icon" style="object-fit: cover;">
+                </div>
+                
+                <div class="payment-method">
+                    <input type="radio" id="paypal" name="payment" value="paypal">
+                    <label for="paypal">PayPal</label>
+                    <img src="https://cdn-icons-png.flaticon.com/512/174/174861.png" alt="PayPal" class="payment-icon">
+                </div>
+                
+                <div class="payment-method">
+                    <input type="radio" id="cod" name="payment" value="cod">
+                    <label for="cod">Cash on Delivery</label>
+                    <img src="https://cdn-icons-png.flaticon.com/512/2331/2331966.png" alt="COD" class="payment-icon">
+                </div>
+                
+                <h2 class="section-title" style="margin-top: 40px;">Order Summary</h2>
+                <div class="order-summary">
+                    <div class="order-item">
+                        <span>Premium Denim Jeans × 1</span>
+                        <span>₱1,299.99</span>
+                    </div>
+                    <div class="order-item">
+                        <span>Classic White T-Shirt × 2</span>
+                        <span>₱999.98</span>
+                    </div>
+                    <div class="order-item">
+                        <span>Shipping</span>
+                        <span>₱99.00</span>
+                    </div>
+                    <div class="order-total">
+                        <span>Total</span>
+                        <span class="total-amount">₱2,398.97</span>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn">Place Order</button>
+            </form>
+        </section>
+        
+        <!-- Order Confirmation Section -->
+        <section id="order-confirmation" class="checkout-section order-confirmation">
+            <div class="confirmation-icon">✓</div>
+            <h2 class="confirmation-title">Thank you for your order!</h2>
+            <p>Your order has been placed successfully.</p>
+            <div class="order-number">Order #12345</div>
+            <p>We've sent a confirmation email to your registered address.</p>
+            <a href="products.html" class="btn" style="max-width: 250px; margin: 30px auto 0;">Continue Shopping</a>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; <span id="current-year">2025</span> Fabrix Fashion. All rights reserved.</p>
+    </footer>
+
+    <!-- Add this script at the bottom of payment.html, just before the closing </body> tag -->
+<script>
+    // Fetch cart items from localStorage
+    function loadCartItems() {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const orderSummary = document.querySelector('.order-summary');
+        
+        // Clear existing items (keeping the total row)
+        const itemsToRemove = orderSummary.querySelectorAll('.order-item:not(.order-total)');
+        itemsToRemove.forEach(item => item.remove());
+        
+        let subtotal = 0;
+        
+        // Add each cart item to the order summary
+        cart.forEach(item => {
+            const itemTotal = item.price * item.quantity;
+            subtotal += itemTotal;
+            
+            const itemElement = document.createElement('div');
+            itemElement.className = 'order-item';
+            itemElement.innerHTML = `
+                <span>${item.name} × ${item.quantity}</span>
+                <span>₱${itemTotal.toFixed(2)}</span>
+            `;
+            orderSummary.insertBefore(itemElement, orderSummary.querySelector('.order-total'));
+        });
+        
+        // Calculate total (add shipping)
+        const shipping = 99.00;
+        const total = subtotal + shipping;
+        
+        // Update total display
+        document.querySelector('.total-amount').textContent = `₱${total.toFixed(2)}`;
+        
+        // Update cart count in header
+        const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+        document.querySelector('.cart-count').textContent = itemCount;
+    }
+    
+    // Load cart when page loads
+    document.addEventListener('DOMContentLoaded', loadCartItems);
+</script>
+</body>
+</html>
