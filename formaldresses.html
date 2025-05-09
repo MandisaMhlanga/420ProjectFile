@@ -1,43 +1,145 @@
-<!-- inside .products-grid -->
-<div class="product-card">
-  <img src="images/formal-dress-1.jpg" alt="Embroidered Gown">
-  <h3>Embroidered Gown</h3>
-  <p class="price">P1,199.99</p>
-  <button class="btn add-to-cart">Add to Cart</button>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Fabrix Fashion - Elegant formal dresses for special occasions">
+    <title>Fabrix Fashion - Formal Dresses</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* (Same CSS as summer-dresses.html) */
+        :root {
+            --primary: #8d111c;
+            --secondary: #2f3542;
+            --accent: #525252;
+            --light: #f1f2f6;
+            --dark: #2f3542;
+            --text: #2f3542;
+            --text-light: #f1f2f6;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            padding-top: 100px;
+            background-color: #f9f9f9;
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        /* (Keep all other CSS rules identical) */
+    </style>
+</head>
+<body>
+   <header class="site-header">
+    <div class="header-container">
+        <h1 class="site-title">Fabrix Fashion</h1>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Shop</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="cart.html" class="cart-link">Cart <span class="cart-count">0</span></a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
 
-<div class="product-card">
-  <img src="images/formal-dress-2.jpg" alt="Satin Evening Dress">
-  <h3>Satin Evening Dress</h3>
-  <p class="price">P1,349.99</p>
-  <button class="btn add-to-cart">Add to Cart</button>
-</div>
+    <main>
+        <section class="category-banner" style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/formal-dresses-banner.jpg')">
+            <div>
+                <h1>Formal Dresses</h1>
+                <p>Elegant designs for weddings and special events</p>
+            </div>
+        </section>
 
-<div class="product-card">
-  <img src="images/formal-dress-3.jpg" alt="Off-Shoulder Maxi Dress">
-  <h3>Off-Shoulder Maxi Dress</h3>
-  <p class="price">P1,099.99</p>
-  <button class="btn add-to-cart">Add to Cart</button>
-</div>
+        <div class="back-to-categories">
+            <a href="products.html">&larr; Back to All Categories</a>
+        </div>
 
-<div class="product-card">
-  <img src="images/formal-dress-4.jpg" alt="Velvet Cocktail Dress">
-  <h3>Velvet Cocktail Dress</h3>
-  <p class="price">P1,249.99</p>
-  <button class="btn add-to-cart">Add to Cart</button>
-</div>
+        <section class="products-section">
+            <h2>Our Formal Collection</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <img src="images/formal-dress-1.jpg" alt="A-Line Evening Gown">
+                    <h3>A-Line Evening Gown</h3>
+                    <p class="price">P2,999.99</p>
+                    <button class="btn add-to-cart">Add to Cart</button>
+                </div>
+                
+                <div class="product-card">
+                    <img src="images/formal-dress-2.jpg" alt="Cocktail Lace Dress">
+                    <h3>Cocktail Lace Dress</h3>
+                    <p class="price">P1,899.99</p>
+                    <button class="btn add-to-cart">Add to Cart</button>
+                </div>
+                
+                <div class="product-card">
+                    <img src="images/formal-dress-3.jpg" alt="Mermaid Silhouette Dress">
+                    <h3>Mermaid Silhouette Dress</h3>
+                    <p class="price">P3,499.99</p>
+                    <button class="btn add-to-cart">Add to Cart</button>
+                </div>
+                
+                <div class="product-card">
+                    <img src="images/formal-dress-4.jpg" alt="Velvet Wrap Dress">
+                    <h3>Velvet Wrap Dress</h3>
+                    <p class="price">P1,799.99</p>
+                    <button class="btn add-to-cart">Add to Cart</button>
+                </div>
+                
+                <div class="product-card">
+                    <img src="images/formal-dress-5.jpg" alt="Chiffon Maxi Dress">
+                    <h3>Chiffon Maxi Dress</h3>
+                    <p class="price">P2,299.99</p>
+                    <button class="btn add-to-cart">Add to Cart</button>
+                </div>
+                
+                <div class="product-card">
+                    <img src="images/formal-dress-6.jpg" alt="Sequined Mini Dress">
+                    <h3>Sequined Mini Dress</h3>
+                    <p class="price">P1,599.99</p>
+                    <button class="btn add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+        </section>
+    </main>
 
-<div class="product-card">
-  <img src="images/formal-dress-5.jpg" alt="Sequin Party Dress">
-  <h3>Sequin Party Dress</h3>
-  <p class="price">P1,399.99</p>
-  <button class="btn add-to-cart">Add to Cart</button>
-</div>
+    <footer class="site-footer">
+        <div class="footer-container">
+            <p>&copy; <span id="current-year">2025</span> Fabrix Fashion. All rights reserved.</p>
+        </div>
+    </footer>
 
-<div class="product-card">
-  <img src="images/formal-dress-6.jpg" alt="Lace A-Line Dress">
-  <h3>Lace A-Line Dress</h3>
-  <p class="price">P1,299.99</p>
-  <button class="btn add-to-cart">Add to Cart</button>
-</div>
+    <script>
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        const header = document.querySelector('.site-header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
 
+        const cartCount = document.querySelector('.cart-count');
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('add-to-cart')) {
+                let count = parseInt(cartCount.textContent);
+                cartCount.textContent = count + 1;
+                cartCount.classList.add('pulse');
+                setTimeout(() => {
+                    cartCount.classList.remove('pulse');
+                }, 500);
+            }
+        });
+    </script>
+</body>
+</html>
