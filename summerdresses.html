@@ -339,34 +339,66 @@
         </div>
     </footer>
 
-    <script>
-        // 1. Auto-update copyright year
-        document.getElementById('current-year').textContent = new Date().getFullYear();
+<script>
+    document.getElementById('current-year').textContent = new Date().getFullYear();
 
-        // 2. Header scroll effect
-        const header = document.querySelector('.site-header');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
+    const header = document.querySelector('.site-header');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    });
 
-        // 3. Add to cart functionality
+    // Initialize cart if it doesn't exist
+    if (!localStorage.getItem('cart')) {
+        localStorage.setItem('cart', JSON.stringify([]));
+    }
+
+    // Update cart count on page load
+    updateCartCount();
+
+    document.addEventListener('click', (e) => {
+        if (e.target.classList.contains('add-to-cart')) {
+            const productCard = e.target.closest('.product-card');
+            const product = {
+                name: productCard.querySelector('h3').textContent,
+                price: productCard.querySelector('.price').textContent,
+                image: productCard.querySelector('img').src,
+                quantity: 1
+            };
+
+            addToCart(product);
+        }
+    });
+
+    function addToCart(product) {
+        const cart = JSON.parse(localStorage.getItem('cart'));
+        const existingItem = cart.find(item => item.name === product.name);
+        
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            cart.push(product);
+        }
+        
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCartCount();
+        
+        // Pulse animation
         const cartCount = document.querySelector('.cart-count');
-        document.addEventListener('click', (e) => {
-            if (e.target.classList.contains('add-to-cart')) {
-                let count = parseInt(cartCount.textContent);
-                cartCount.textContent = count + 1;
-                
-                // Animation
-                cartCount.classList.add('pulse');
-                setTimeout(() => {
-                    cartCount.classList.remove('pulse');
-                }, 500);
-            }
-        });
-    </script>
+        cartCount.classList.add('pulse');
+        setTimeout(() => {
+            cartCount.classList.remove('pulse');
+        }, 500);
+    }
+
+    function updateCartCount() {
+        const cart = JSON.parse(localStorage.getItem('cart'));
+        const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+        document.querySelector('.cart-count').textContent = totalItems;
+    }
+</script>
 </body>
 </html>
