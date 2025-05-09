@@ -453,22 +453,5 @@
     </div>
   </footer>
 <script src="js/cart.js"></script>
-<script>
-    document.getElementById('current-year').textContent = new Date().getFullYear();
-
-    document.addEventListener('click', (e) => {
-        if (e.target.classList.contains('add-to-cart')) {
-            const productCard = e.target.closest('.product-card');
-            const product = {
-                id: productCard.querySelector('img').src.split('/').pop().split('.')[0], // creates ID from image filename
-                name: productCard.querySelector('h3').textContent,
-                price: productCard.querySelector('.price').textContent,
-                image: productCard.querySelector('img').src,
-                quantity: 1
-            };
-            addToCart(product);
-        }
-    });
-</script>
 </body>
 </html>
