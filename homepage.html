@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Fabrix Fashion - Trendy and affordable dresses for everyone">
-    <title>Fabrix Fashion - Elegant Dresses Just For You</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet>
+    <meta name="description" content="Fabrix Fashion - Trendy and affordable clothing for everyone">
+    <title>Fabrix Fashion - Trendy Styles Just For You</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #8d111c;
@@ -109,7 +109,7 @@
         .hero {
             height: 500px;
             background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
-                        url('https://images.unsplash.com/photo-1539109136881-3be0616acf4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80');
+                        url('https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80');
             background-size: cover;
             background-position: center;
             display: flex;
@@ -268,8 +268,8 @@
     <main>
         <section class="hero">
             <div class="hero-content">
-                <h2 id="hero-heading">Elegant Dresses Just For You</h2>
-                <p class="hero-text">Discover our beautiful collection of dresses for every occasion.</p>
+                <h2 id="hero-heading">Trendy Dresses Just For You</h2>
+                <p class="hero-text">Discover the latest dress collections at affordable prices.</p>
                 <a href="products.html" class="btn">Shop Now</a>
             </div>
         </section>
@@ -321,16 +321,16 @@
             }, 500);
         }
         
-        // 4. Dress Product Data with IDs and images
+        // 4. Product Data with IDs and placeholder images (only dresses)
         const products = [
-            { id: 1, name: "Summer Floral Dress", price: "P1,299.99", image: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" },
-            { id: 2, name: "Elegant Evening Gown", price: "P2,499.99", image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" },
-            { id: 3, name: "Casual Sundress", price: "P899.99", image: "https://images.unsplash.com/photo-1585487000160-6ebcfceb295d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" },
-            { id: 4, name: "Little Black Dress", price: "P1,599.99", image: "https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" },
-            { id: 5, name: "Bohemian Maxi Dress", price: "P1,799.99", image: "https://images.unsplash.com/photo-1581044777550-4cfa60707c03?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" },
-            { id: 6, name: "Office Sheath Dress", price: "P1,399.99", image: "https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" },
-            { id: 7, name: "Cocktail Party Dress", price: "P1,899.99", image: "https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" },
-            { id: 8, name: "Wrap Dress", price: "P1,199.99", image: "https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" }
+            { id: 1, name: "Floral Summer Dress", price: "P529.99", image: "https://images.unsplash.com/photo-1585487000160-6ebcfceb295d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" },
+            { id: 2, name: "Elegant Evening Gown", price: "P1259.99", image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" },
+            { id: 3, name: "Casual Sundress", price: "P439.99", image: "https://images.unsplash.com/photo-1539008835657-9e8e9680e956?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" },
+            { id: 4, name: "Little Black Dress", price: "P699.99", image: "https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" },
+            { id: 5, name: "Bohemian Maxi Dress", price: "P799.99", image: "https://images.unsplash.com/photo-1581674217916-10a7dd460e66?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" },
+            { id: 6, name: "Office Sheath Dress", price: "P899.99", image: "https://images.unsplash.com/photo-1589283578426-930a2d5a7a2f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" },
+            { id: 7, name: "Wrap Dress", price: "P659.99", image: "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" },
+            { id: 8, name: "Party Cocktail Dress", price: "P999.99", image: "https://images.unsplash.com/photo-1595341595379-cf0f0f13d8f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" }
         ];
 
         // 5. Render Products
