@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Fabrix Fashion - Trendy and affordable clothing for everyone">
-    <title>Fabrix Fashion - Trendy Styles Just For You</title>
+    <meta name="description" content="Fabrix Fashion - Trendy and affordable dresses for everyone">
+    <title>Fabrix Fashion - Trendy Dresses Just For You</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
+        /* All your original styles remain unchanged */
         :root {
             --primary: #8d111c;
             --secondary: #2f3542;
@@ -18,13 +19,13 @@
             --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Poppins', sans-serif;
             padding-top: 100px;
@@ -32,8 +33,7 @@
             color: var(--text);
             line-height: 1.6;
         }
-        
-        /* Header Styles */
+
         .site-header {
             position: fixed;
             top: 0;
@@ -47,7 +47,7 @@
             -webkit-backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         }
-        
+
         .header-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -56,7 +56,7 @@
             align-items: center;
             padding: 15px 30px;
         }
-        
+
         .site-title {
             font-size: 2rem;
             font-weight: 700;
@@ -64,13 +64,13 @@
             text-transform: uppercase;
             letter-spacing: 2px;
         }
-        
+
         .main-nav ul {
             display: flex;
             list-style: none;
             gap: 30px;
         }
-        
+
         .main-nav a {
             color: var(--dark);
             text-decoration: none;
@@ -80,17 +80,17 @@
             padding: 10px 0;
             transition: var(--transition);
         }
-        
+
         .main-nav a:hover {
             color: var(--primary);
         }
-        
+
         .cart-link {
             position: relative;
             display: flex;
             align-items: center;
         }
-        
+
         .cart-count {
             background-color: var(--primary);
             color: white;
@@ -100,12 +100,11 @@
             margin-left: 5px;
             transition: transform 0.2s ease;
         }
-        
+
         .cart-link:hover .cart-count {
             transform: scale(1.1);
         }
-        
-        /* Hero Section */
+
         .hero {
             height: 500px;
             background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
@@ -119,13 +118,13 @@
             color: white;
             margin-bottom: 50px;
         }
-        
+
         .hero-content h2 {
             font-size: 3rem;
             margin-bottom: 20px;
             font-weight: 600;
         }
-        
+
         .hero-content p {
             font-size: 1.2rem;
             margin-bottom: 30px;
@@ -133,27 +132,26 @@
             margin-left: auto;
             margin-right: auto;
         }
-        
-        /* Products Section */
+
         .featured-products {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px 50px;
         }
-        
+
         .featured-products h2 {
             text-align: center;
             margin-bottom: 40px;
             font-size: 2rem;
             color: var(--dark);
         }
-        
+
         .products-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 30px;
         }
-        
+
         .product-card {
             background: white;
             border-radius: 8px;
@@ -161,33 +159,32 @@
             box-shadow: var(--shadow);
             transition: var(--transition);
         }
-        
+
         .product-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
-        
+
         .product-card img {
             width: 100%;
             height: 300px;
             object-fit: cover;
             display: block;
         }
-        
+
         .product-card h3 {
             font-size: 1.1rem;
             margin: 15px 0 5px;
             padding: 0 15px;
         }
-        
+
         .product-card .price {
             color: var(--primary);
             font-weight: 600;
             padding: 0 15px;
             margin-bottom: 15px;
         }
-        
-        /* Buttons */
+
         .btn {
             display: inline-block;
             padding: 10px 25px;
@@ -200,50 +197,47 @@
             border: none;
             cursor: pointer;
         }
-        
+
         .btn:hover {
             background-color: var(--accent);
             transform: translateY(-2px);
         }
-        
+
         .add-to-cart {
             width: calc(100% - 30px);
             margin: 0 15px 15px;
         }
-        
-        /* Footer */
+
         .site-footer {
             background-color: var(--dark);
             color: white;
             text-align: center;
             padding: 20px;
         }
-        
-        /* Animations */
+
         .cart-count.pulse {
             animation: pulse 0.5s;
         }
-        
+
         @keyframes pulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.3); }
             100% { transform: scale(1); }
         }
-        
-        /* Responsive Design */
+
         @media (max-width: 768px) {
             .header-container {
                 padding: 15px 20px;
             }
-            
+
             .main-nav ul {
                 gap: 15px;
             }
-            
+
             .hero-content h2 {
                 font-size: 2rem;
             }
-            
+
             .products-grid {
                 grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             }
@@ -268,14 +262,14 @@
     <main>
         <section class="hero">
             <div class="hero-content">
-                <h2 id="hero-heading">Trendy Styles Just For You</h2>
-                <p class="hero-text">Discover the latest fashion at affordable prices.</p>
+                <h2 id="hero-heading">Trendy Dresses Just For You</h2>
+                <p class="hero-text">Discover the latest dress styles at affordable prices.</p>
                 <a href="products.html" class="btn">Shop Now</a>
             </div>
         </section>
 
         <section class="featured-products">
-            <h2>New Arrivals</h2>
+            <h2>New Dresses</h2>
             <div class="products-grid" id="products-container">
                 <!-- Products will be loaded via JavaScript -->
             </div>
@@ -289,10 +283,8 @@
     </footer>
 
     <script>
-        // 1. Auto-update copyright year
         document.getElementById('current-year').textContent = new Date().getFullYear();
 
-        // 2. Header scroll effect
         const header = document.querySelector('.site-header');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
@@ -302,37 +294,32 @@
             }
         });
 
-        // 3. Enhanced Cart System
         const cartCount = document.querySelector('.cart-count');
         let cart = JSON.parse(localStorage.getItem('fabrixCart')) || [];
-        
-        // Update cart count display
+
         function updateCartCount() {
             const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
             cartCount.textContent = totalItems;
             localStorage.setItem('fabrixCart', JSON.stringify(cart));
         }
-        
-        // Cart animation
+
         function animateCart() {
             cartCount.classList.add('pulse');
             setTimeout(() => {
                 cartCount.classList.remove('pulse');
             }, 500);
         }
-        
-        // 4. Product Data with IDs and placeholder images
+
+        // Only dress products
         const products = [
-            { id: 1, name: "Summer Dress", price: "P529.99", image: "https://images.unsplash.com/photo-1585487000160-6ebcfceb295d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" },
-            { id: 2, name: "Denim Jacket", price: "P459.99", image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" },
-            { id: 3, name: "Casual Sneakers", price: "P1039.99", image: "https://images.unsplash.com/photo-1600269452121-4f2416e55c28?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" },
-            { id: 4, name: "Top", price: "P139.99", image: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" },
-            { id: 5, name: "Stylish Sunglasses", price: "P299.99", image: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" },
-            { id: 6, name: "Leather Handbag", price: "P1299.99", image: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" },
-            { id: 7, name: "Wool Scarf", price: "P399.99", image: "https://images.unsplash.com/photo-1604176354204-9268737828e4?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" }
+            { id: 1, name: "Floral Maxi Dress", price: "P749.99", image: "https://images.unsplash.com/photo-1627483298484-07c8b0dff517?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" },
+            { id: 2, name: "Sleeveless Summer Dress", price: "P599.99", image: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" },
+            { id: 3, name: "Casual Day Dress", price: "P479.99", image: "https://images.unsplash.com/photo-1593032457860-b5c841c3c241?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" },
+            { id: 4, name: "Evening Cocktail Dress", price: "P1099.99", image: "https://images.unsplash.com/photo-1591348277220-e21448b1c5cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" },
+            { id: 5, name: "Off-Shoulder Dress", price: "P899.99", image: "https://images.unsplash.com/photo-1620969185280-d43e9a3051c2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" },
+            { id: 6, name: "Polka Dot Dress", price: "P649.99", image: "https://images.unsplash.com/photo-1560641307-7ef29c8f0c63?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" }
         ];
 
-        // 5. Render Products
         const productsContainer = document.getElementById('products-container');
         products.forEach(product => {
             const productElement = document.createElement('div');
@@ -346,15 +333,12 @@
             productsContainer.appendChild(productElement);
         });
 
-        // 6. Add to cart functionality
         document.addEventListener('click', (e) => {
             if (e.target.classList.contains('add-to-cart')) {
                 const productId = parseInt(e.target.dataset.id);
                 const product = products.find(p => p.id === productId);
-                
-                // Check if product already in cart
                 const existingItem = cart.find(item => item.id === productId);
-                
+
                 if (existingItem) {
                     existingItem.quantity += 1;
                 } else {
@@ -366,20 +350,18 @@
                         quantity: 1
                     });
                 }
-                
+
                 updateCartCount();
                 animateCart();
             }
         });
 
-        // Initialize cart count
         updateCartCount();
 
-        // 7. Typewriter effect for hero text
         const heroHeading = document.getElementById('hero-heading');
         const originalText = heroHeading.textContent;
         heroHeading.textContent = '';
-        
+
         let i = 0;
         const typeWriter = () => {
             if (i < originalText.length) {
