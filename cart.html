@@ -144,20 +144,12 @@
     </div>
   </footer>
 
-  <script>
+  <script src="js/cart.js"></script>
+<script>
     document.getElementById('current-year').textContent = new Date().getFullYear();
-    
-    // Update cart count on load
-    updateCartCount();
     
     // Display cart items
     displayCartItems();
-    
-    function updateCartCount() {
-      const cart = JSON.parse(localStorage.getItem('cart')) || [];
-      const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
-      document.querySelector('.cart-count').textContent = totalItems;
-    }
     
     function displayCartItems() {
       const cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -253,6 +245,6 @@
       displayCartItems();
       updateCartCount();
     }
-  </script>
+</script>
 </body>
 </html>
