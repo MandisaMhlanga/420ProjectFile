@@ -444,13 +444,13 @@
             itemElement.className = 'order-item';
             itemElement.innerHTML = `
                 <span>${item.name} × ${item.quantity}</span>
-                <span>₱${itemTotal.toFixed(2)}</span>
+                <span>P${itemTotal.toFixed(2)}</span>
             `;
             orderSummary.insertBefore(itemElement, orderSummary.querySelector('.order-total'));
         });
         
         // Calculate total (add shipping)
-        const shipping = 99.00;
+        const shipping = 50.00;
         const total = subtotal + shipping;
         
         // Update total display
