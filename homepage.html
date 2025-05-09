@@ -256,10 +256,10 @@
             <h1 class="site-title">Fabrix Fashion</h1>
             <nav class="main-nav">
                 <ul>
-                    <li><a href="#" class="nav-link" data-page="home">Home</a></li>
-                    <li><a href="#" class="nav-link" data-page="products">Shop</a></li>
-                    <li><a href="#" class="nav-link" data-page="login">Login</a></li>
-                    <li><a href="#" class="nav-link cart-link" data-page="cart">Cart <span class="cart-count">0</span></a></li>
+                    <li><a href="index.html" aria-current="page">Home</a></li>
+                    <li><a href="products.html">Shop</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="cart.html" class="cart-link">Cart <span class="cart-count">0</span></a></li>
                 </ul>
             </nav>
         </div>
@@ -270,7 +270,7 @@
             <div class="hero-content">
                 <h2 id="hero-heading">Trendy Dresses Just For You</h2>
                 <p class="hero-text">Discover the latest dress collections at affordable prices.</p>
-                <a href="#" class="btn" id="shop-now-btn">Shop Now</a>
+                <a href="products.html" class="btn">Shop Now</a>
             </div>
         </section>
 
@@ -370,7 +370,6 @@
                 
                 updateCartCount();
                 animateCart();
-                alert(`${product.name} added to cart!`);
             }
         });
 
@@ -391,40 +390,7 @@
             }
         };
         typeWriter();
-
-        // 8. Navigation functionality
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const page = link.dataset.page;
-                
-                switch(page) {
-                    case 'home':
-                        // Already on home page
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                        break;
-                    case 'products':
-                        alert('Redirecting to Products page');
-                        // In a real implementation: window.location.href = 'products.html';
-                        break;
-                    case 'login':
-                        alert('Redirecting to Login page');
-                        // In a real implementation: window.location.href = 'login.html';
-                        break;
-                    case 'cart':
-                        alert('Redirecting to Cart page');
-                        // In a real implementation: window.location.href = 'cart.html';
-                        break;
-                }
-            });
-        });
-
-        // 9. Shop Now button functionality
-        document.getElementById('shop-now-btn').addEventListener('click', (e) => {
-            e.preventDefault();
-            alert('Redirecting to Products page');
-            // In a real implementation: window.location.href = 'products.html';
-        });
     </script>
 </body>
 </html>
+ 
