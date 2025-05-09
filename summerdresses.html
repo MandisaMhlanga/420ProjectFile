@@ -432,24 +432,24 @@
             <p>&copy; <span id="current-year">2025</span> Fabrix Fashion. All rights reserved.</p>
         </div>
     </footer>
-
-<script src="js/cart.js"></script>
 <script>
-    document.getElementById('current-year').textContent = new Date().getFullYear();
-
-    document.addEventListener('click', (e) => {
+document.addEventListener('DOMContentLoaded', function() {
+    // Handle add to cart buttons
+    document.addEventListener('click', function(e) {
         if (e.target.classList.contains('add-to-cart')) {
             const productCard = e.target.closest('.product-card');
             const product = {
-                id: productCard.querySelector('img').src.split('/').pop().split('.')[0], // creates ID from image filename
+                id: productCard.querySelector('img').src.split('/').pop().split('.')[0],
                 name: productCard.querySelector('h3').textContent,
                 price: productCard.querySelector('.price').textContent,
-                image: productCard.querySelector('img').src,
-                quantity: 1
+                image: productCard.querySelector('img').src
             };
             addToCart(product);
         }
     });
+});
 </script>
+<script src="js/cart.js"></script>
+
 </body>
 </html>
