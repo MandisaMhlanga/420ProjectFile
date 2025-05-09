@@ -247,11 +247,10 @@
                 <p>Create your account to start your fashion journey</p>
             </div>
             
-            <form action="register.php" method="POST">
-
+            <form id="registration-form">
                 <div class="form-group">
-                    <label for="Fullname">Fullname</label>
-                    <input type="text" id="username" name="username" class="form-control" placeholder="Enter your fullname" required>
+                    <label for="fullname">Fullname</label>
+                    <input type="text" id="fullname" name="fullname" class="form-control" placeholder="Enter your fullname" required>
                 </div>
 
                 <div class="form-group">
@@ -299,6 +298,23 @@
             } else {
                 header.classList.remove('scrolled');
             }
+        });
+
+        // Form submission handler
+        document.getElementById('registration-form').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent default form submission
+            
+            // Here you would typically validate the form and send data to a server
+            // For this demo, we'll just redirect to success.html
+            
+            // Redirect to success page
+            window.location.href = 'success.html';
+            
+            // In a real application, you would:
+            // 1. Validate form data
+            // 2. Send data to server via fetch or XMLHttpRequest
+            // 3. On success, redirect to success.html
+            // 4. On error, show error messages on the form
         });
     </script>
 </body>
