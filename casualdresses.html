@@ -7,6 +7,35 @@
   <title>Fabrix Fashion - Casual Dresses</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
   <style>
+    /* Cart Notification */
+.cart-notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--primary);
+    color: white;
+    padding: 15px 20px;
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.cart-notification.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.cart-notification a {
+    color: white;
+    text-decoration: underline;
+    font-weight: 600;
+}
     /* Cart Specific Styles */
 .cart-container {
   max-width: 1200px;
