@@ -247,7 +247,7 @@
                     <div class="category-overlay">
                         <h3>Summer Dresses</h3>
                         <p>Light and breezy dresses perfect for warm weather</p>
-                        <a href="#" class="btn shop-now">Shop Now</a>
+                        <a href="summer-dresses.html" class="btn shop-now">Shop Now</a>
                     </div>
                 </div>
                 
@@ -256,7 +256,7 @@
                     <div class="category-overlay">
                         <h3>Casual Dresses</h3>
                         <p>Everyday comfortable dresses for any occasion</p>
-                        <a href="#" class="btn shop-now">Shop Now</a>
+                        <a href="casual-dresses.html" class="btn shop-now">Shop Now</a>
                     </div>
                 </div>
                 
@@ -265,7 +265,7 @@
                     <div class="category-overlay">
                         <h3>Formal Dresses</h3>
                         <p>Elegant dresses for special occasions</p>
-                        <a href="#" class="btn shop-now">Shop Now</a>
+                        <a href="formal-dresses.html" class="btn shop-now">Shop Now</a>
                     </div>
                 </div>
                 
@@ -274,7 +274,7 @@
                     <div class="category-overlay">
                         <h3>Knitwear</h3>
                         <p>Cozy and stylish knit dresses for cooler days</p>
-                        <a href="#" class="btn shop-now">Shop Now</a>
+                        <a href="knitwear.html" class="btn shop-now">Shop Now</a>
                     </div>
                 </div>
             </div>
@@ -301,18 +301,24 @@
             }
         });
 
-        // 3. Add to cart functionality
+        // 3. Add to cart functionality (modified to not interfere with navigation)
         const cartCount = document.querySelector('.cart-count');
         document.addEventListener('click', (e) => {
-            if (e.target.classList.contains('shop-now')) {
-                let count = parseInt(cartCount.textContent);
-                cartCount.textContent = count + 1;
-                
-                // Animation
-                cartCount.classList.add('pulse');
-                setTimeout(() => {
-                    cartCount.classList.remove('pulse');
-                }, 500);
+            // Only run if clicking a shop-now button and not holding modifier keys
+            if (e.target.classList.contains('shop-now') {
+                if (!e.ctrlKey && !e.metaKey && !e.shiftKey) {
+                    e.preventDefault();
+                    let count = parseInt(cartCount.textContent);
+                    cartCount.textContent = count + 1;
+                    
+                    // Animation
+                    cartCount.classList.add('pulse');
+                    setTimeout(() => {
+                        cartCount.classList.remove('pulse');
+                        // Navigate to the link after animation
+                        window.location.href = e.target.href;
+                    }, 500);
+                }
             }
         });
     </script>
