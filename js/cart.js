@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Add product to cart
+    // Add product to cart (now global)
     window.addToCart = function(product) {
         const cart = getCart();
         const existingItem = cart.find(item => item.id === product.id);
@@ -53,6 +53,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
         saveCart(cart);
         animateCart();
+        showCartNotification(product.name);
+    };
+
+    // Show cart notification
+    function showCartNotification(productName) {
+        const notification = document.createElement('div');
+        notification.className = 'cart-notification';
+        notification.innerHTML = `
+            <span>${productName} added to cart!</span>
+            <a href="cart.html">View Cart</a>
+        `;
+        document.body.appendChild(notification);
+        
+        setTimeout(() => notification.classList.add('show'), 10);
+        setTimeout(() => {
+            notification.classList.remove('show');
+            setTimeout(() => document.body.removeChild(notification), 300);
+        }, 3000);
     }
 
     // Display cart items on cart page
@@ -154,7 +172,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (checkoutBtn) {
             checkoutBtn.addEventListener('click', function() {
                 alert('Proceeding to checkout!');
-                // In a real app, you would redirect to checkout page
             });
         }
     }
