@@ -1,8 +1,8 @@
-
+// cart.js - Complete corrected version
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize cart if empty
-    if (!localStorage.getItem('cart')) {
-        localStorage.setItem('cart', JSON.stringify([]));
+    // Initialize cart with consistent key
+    if (!localStorage.getItem('fabrixCart')) {
+        localStorage.setItem('fabrixCart', JSON.stringify([]));
     }
 
     // Update cart count in header
@@ -16,12 +16,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Get current cart
     function getCart() {
-        return JSON.parse(localStorage.getItem('cart')) || [];
+        return JSON.parse(localStorage.getItem('fabrixCart')) || [];
     }
 
     // Save cart to storage
     function saveCart(cart) {
-        localStorage.setItem('cart', JSON.stringify(cart));
+        localStorage.setItem('fabrixCart', JSON.stringify(cart));
         updateCartCount();
     }
 
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Add product to cart
-    function addToCart(product) {
+    window.addToCart = function(product) {
         const cart = getCart();
         const existingItem = cart.find(item => item.id === product.id);
 
@@ -80,8 +80,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 <img src="${item.image}" alt="${item.name}" class="cart-item-image">
                 <div class="cart-item-details">
                     <h3>${item.name}</h3>
-                    <p class="price">${item.price}</p>
-                    <div class="quantity-controls">
+                    <p class="cart-item-price">${item.price}</p>
+                    <div class="cart-item-quantity">
                         <button class="quantity-btn minus">-</button>
                         <span>${item.quantity}</span>
                         <button class="quantity-btn plus">+</button>
@@ -91,16 +91,16 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
         `).join('');
 
-        // Calculate total
+        // Calculate total with proper price parsing
         const subtotal = cart.reduce((total, item) => {
-            const price = parseFloat(item.price.replace('P', '').replace(',', ''));
+            const price = parseFloat(item.price.replace(/[^0-9.]/g, ''));
             return total + (price * item.quantity);
         }, 0);
 
         summaryContainer.innerHTML = `
             <p>Items: ${cart.reduce((sum, item) => sum + item.quantity, 0)}</p>
-            <p>Subtotal: P${subtotal.toFixed(2)}</p>
-            <p class="total">Total: P${subtotal.toFixed(2)}</p>
+            <p>Subtotal: ₱${subtotal.toFixed(2)}</p>
+            <p class="cart-total">Total: ₱${subtotal.toFixed(2)}</p>
         `;
     }
 
@@ -133,20 +133,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Set up event listeners
     function setupEventListeners() {
-        // Add to cart buttons
+        // Quantity controls
         document.addEventListener('click', function(e) {
-            if (e.target.classList.contains('add-to-cart')) {
-                const productCard = e.target.closest('.product-card');
-                const product = {
-                    id: productCard.querySelector('img').src,
-                    name: productCard.querySelector('h3').textContent,
-                    price: productCard.querySelector('.price').textContent,
-                    image: productCard.querySelector('img').src
-                };
-                addToCart(product);
-            }
-
-            // Quantity controls
             if (e.target.classList.contains('minus')) {
                 handleQuantityChange(e.target.closest('.cart-item'), -1);
             }
@@ -160,6 +148,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 removeItem(e.target.closest('.cart-item'));
             }
         });
+
+        // Checkout button
+        const checkoutBtn = document.querySelector('.checkout-btn');
+        if (checkoutBtn) {
+            checkoutBtn.addEventListener('click', function() {
+                alert('Proceeding to checkout!');
+                // In a real app, you would redirect to checkout page
+            });
+        }
     }
 
     // Initialize everything
