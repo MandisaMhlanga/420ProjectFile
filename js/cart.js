@@ -134,3 +134,74 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Make addToCart globally accessible
 window.addToCart = (product) => Cart.add(product);
+window.addEventListener('DOMContentLoaded', () => {
+  loadCartItems();
+  updateCartCount();
+});
+
+function loadCartItems() {
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const container = document.getElementById('cart-items-container');
+  const emptyMsg = document.getElementById('empty-cart-message');
+  const summaryContainer = document.getElementById('cart-summary-container');
+  const subtotalEl = document.getElementById('subtotal');
+  const totalEl = document.getElementById('total');
+
+  container.innerHTML = '';
+  let subtotal = 0;
+
+  if (cart.length === 0) {
+    emptyMsg.style.display = 'block';
+    summaryContainer.style.display = 'none';
+    return;
+  }
+
+  emptyMsg.style.display = 'none';
+  summaryContainer.style.display = 'block';
+
+  cart.forEach((item, index) => {
+    subtotal += item.price * item.quantity;
+
+    const itemEl = document.createElement('div');
+    itemEl.className = 'cart-item';
+    itemEl.innerHTML = `
+      <img src="${item.image}" alt="${item.name}" class="cart-item-image" />
+      <div class="cart-item-details">
+        <div class="cart-item-name">${item.name}</div>
+        <div class="cart-item-price">P${item.price.toFixed(2)}</div>
+        <div class="cart-item-actions">
+          <div class="cart-item-quantity">
+            <button class="quantity-btn" onclick="changeQuantity(${index}, -1)">−</button>
+            <span>${item.quantity}</span>
+            <button class="quantity-btn" onclick="changeQuantity(${index}, 1)">+</button>
+          </div>
+          <button class="remove-btn" onclick="removeItem(${index})"><i class="fas fa-trash"></i> Remove</button>
+        </div>
+      </div>
+    `;
+    container.appendChild(itemEl);
+  });
+
+  subtotalEl.textContent = `P${subtotal.toFixed(2)}`;
+  totalEl.textContent = `P${subtotal.toFixed(2)}`; // No shipping cost
+}
+
+function changeQuantity(index, delta) {
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  cart[index].quantity += delta;
+  if (cart[index].quantity <= 0) {
+    cart.splice(index, 1);
+  }
+  localStorage.setItem('cart', JSON.stringify(cart));
+  loadCartItems();
+  updateCartCount();
+}
+
+function removeItem(index) {
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  cart.splice(index, 1);
+  localStorage.setItem('cart', JSON.stringify(cart));
+  loadCartItems();
+  updateCartCount();
+}
+
