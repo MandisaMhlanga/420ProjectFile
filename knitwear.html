@@ -325,26 +325,9 @@
     </div>
   </footer>
 
+<script src="js/cart.js"></script>
 <script>
     document.getElementById('current-year').textContent = new Date().getFullYear();
-
-    // Header scroll effect
-    const header = document.querySelector('.site-header');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
-        }
-    });
-
-    // Initialize cart if it doesn't exist
-    if (!localStorage.getItem('cart')) {
-        localStorage.setItem('cart', JSON.stringify([]));
-    }
-
-    // Update cart count on page load
-    updateCartCount();
 
     document.addEventListener('click', (e) => {
         if (e.target.classList.contains('add-to-cart')) {
@@ -359,33 +342,6 @@
             addToCart(product);
         }
     });
-
-    function addToCart(product) {
-        const cart = JSON.parse(localStorage.getItem('cart'));
-        const existingItem = cart.find(item => item.id === product.id);
-        
-        if (existingItem) {
-            existingItem.quantity += 1;
-        } else {
-            cart.push(product);
-        }
-        
-        localStorage.setItem('cart', JSON.stringify(cart));
-        updateCartCount();
-        
-        // Pulse animation
-        const cartCount = document.querySelector('.cart-count');
-        cartCount.classList.add('pulse');
-        setTimeout(() => {
-            cartCount.classList.remove('pulse');
-        }, 500);
-    }
-
-    function updateCartCount() {
-        const cart = JSON.parse(localStorage.getItem('cart')) || [];
-        const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
-        document.querySelector('.cart-count').textContent = totalItems;
-    }
 </script>
 </body>
 </html>
