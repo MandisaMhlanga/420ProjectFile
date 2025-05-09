@@ -84,6 +84,12 @@
             color: var(--primary);
         }
         
+        .cart-link {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
         .cart-count {
             background-color: var(--primary);
             color: white;
@@ -91,6 +97,11 @@
             padding: 2px 8px;
             font-size: 0.8rem;
             margin-left: 5px;
+            transition: transform 0.2s ease;
+        }
+        
+        .cart-link:hover .cart-count {
+            transform: scale(1.1);
         }
         
         /* Main Content */
@@ -105,6 +116,7 @@
             border-radius: 8px;
             box-shadow: var(--shadow);
             padding: 30px;
+            margin-bottom: 30px;
         }
         
         .section-title {
@@ -132,6 +144,61 @@
         .cart-table td {
             padding: 15px 10px;
             border-bottom: 1px solid #eee;
+            vertical-align: middle;
+        }
+        
+        .cart-item-img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-right: 15px;
+        }
+        
+        .cart-item-info {
+            display: flex;
+            align-items: center;
+        }
+        
+        .quantity-control {
+            display: flex;
+            align-items: center;
+        }
+        
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            background: var(--light);
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .quantity-input {
+            width: 50px;
+            text-align: center;
+            margin: 0 10px;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .remove-item {
+            color: var(--primary);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+        
+        .remove-item:hover {
+            color: var(--accent);
+            transform: scale(1.1);
         }
         
         .cart-total {
@@ -169,6 +236,23 @@
             float: right;
         }
         
+        .btn-continue {
+            background-color: var(--secondary);
+            margin-right: 15px;
+        }
+        
+        /* Empty Cart */
+        .empty-cart {
+            text-align: center;
+            padding: 50px 0;
+        }
+        
+        .empty-cart-icon {
+            font-size: 5rem;
+            color: var(--light);
+            margin-bottom: 20px;
+        }
+        
         /* Footer */
         .site-footer {
             background-color: var(--dark);
@@ -178,10 +262,31 @@
             margin-top: 50px;
         }
         
-        /* Empty Cart */
-        .empty-cart {
-            text-align: center;
-            padding: 50px 0;
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 15px 20px;
+            }
+            
+            .main-nav ul {
+                gap: 15px;
+            }
+            
+            .cart-item-info {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .cart-item-img {
+                margin-bottom: 10px;
+                margin-right: 0;
+            }
+            
+            .btn-checkout {
+                float: none;
+                width: 100%;
+                margin-top: 15px;
+            }
         }
     </style>
 </head>
@@ -193,7 +298,7 @@
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="products.html">Shop</a></li>
-                    <li><a href="cart.html" class="cart-link">Cart <span class="cart-count">2</span></a></li>
+                    <li><a href="cart.html" class="cart-link">Cart <span class="cart-count">0</span></a></li>
                 </ul>
             </nav>
         </div>
@@ -203,25 +308,15 @@
         <section class="cart-section">
             <h2 class="section-title">Your Shopping Cart</h2>
             
-            <table class="cart-table">
-                <thead>
-                    <tr>
-                        <th>Product</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Subtotal</th>
-                    </tr>
-                </thead>
-                <tbody id="cart-items">
-                    <!-- Cart items will be inserted here by JavaScript -->
-                </tbody>
-            </table>
-            
-            <div class="cart-total">
-                Total: <span class="total-amount" id="cart-total">₱0.00</span>
+            <div id="cart-content">
+                <!-- Dynamic content will be inserted here -->
+                <div class="empty-cart">
+                    <div class="empty-cart-icon">🛒</div>
+                    <h3>Your cart is empty</h3>
+                    <p>Looks like you haven't added anything to your cart yet</p>
+                    <a href="products.html" class="btn">Continue Shopping</a>
+                </div>
             </div>
-            
-            <a href="payment.html" class="btn btn-checkout">Proceed to Payment</a>
         </section>
     </main>
 
@@ -230,53 +325,150 @@
     </footer>
 
     <script>
-        // Sample cart data - in a real app this would come from a server or localStorage
-        const cartItems = [
-            { id: 1, name: "Premium Denim Jeans", price: 1299.99, quantity: 1 },
-            { id: 2, name: "Classic White T-Shirt", price: 499.99, quantity: 2 }
-        ];
-
         // Update copyright year
         document.getElementById('current-year').textContent = new Date().getFullYear();
-        
-        // Render cart items
-        function renderCart() {
-            const cartItemsContainer = document.getElementById('cart-items');
-            const cartTotalElement = document.getElementById('cart-total');
-            let total = 0;
+
+        // Cart functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const cartContent = document.getElementById('cart-content');
+            const cartCountElement = document.querySelector('.cart-count');
             
-            // Clear existing items
-            cartItemsContainer.innerHTML = '';
+            // Load cart from localStorage
+            let cart = JSON.parse(localStorage.getItem('fabrixCart')) || [];
             
-            // Add each item to the cart
-            cartItems.forEach(item => {
-                const subtotal = item.price * item.quantity;
-                total += subtotal;
+            // Render cart
+            renderCart();
+            
+            function renderCart() {
+                // Update cart count
+                const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+                cartCountElement.textContent = totalItems;
                 
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${item.name}</td>
-                    <td>₱${item.price.toFixed(2)}</td>
-                    <td>${item.quantity}</td>
-                    <td>₱${subtotal.toFixed(2)}</td>
+                if (cart.length === 0) {
+                    // Show empty cart message
+                    cartContent.innerHTML = `
+                        <div class="empty-cart">
+                            <div class="empty-cart-icon">🛒</div>
+                            <h3>Your cart is empty</h3>
+                            <p>Looks like you haven't added anything to your cart yet</p>
+                            <a href="products.html" class="btn">Continue Shopping</a>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                // Calculate total
+                const total = cart.reduce((sum, item) => {
+                    // Extract numeric price from string (e.g., "P529.99" -> 529.99)
+                    const price = parseFloat(item.price.replace(/[^0-9.]/g, ''));
+                    return sum + (price * item.quantity);
+                }, 0);
+                
+                // Generate cart HTML
+                let cartHTML = `
+                    <table class="cart-table">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Subtotal</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="cart-items">
                 `;
-                cartItemsContainer.appendChild(row);
-            });
+                
+                cart.forEach(item => {
+                    const price = parseFloat(item.price.replace(/[^0-9.]/g, ''));
+                    const subtotal = price * item.quantity;
+                    
+                    cartHTML += `
+                        <tr data-id="${item.id}">
+                            <td>
+                                <div class="cart-item-info">
+                                    <img src="${item.image}" alt="${item.name}" class="cart-item-img">
+                                    <span>${item.name}</span>
+                                </div>
+                            </td>
+                            <td>${item.price}</td>
+                            <td>
+                                <div class="quantity-control">
+                                    <button class="quantity-btn minus" data-id="${item.id}">-</button>
+                                    <input type="number" value="${item.quantity}" min="1" class="quantity-input" data-id="${item.id}">
+                                    <button class="quantity-btn plus" data-id="${item.id}">+</button>
+                                </div>
+                            </td>
+                            <td>P${subtotal.toFixed(2)}</td>
+                            <td><button class="remove-item" data-id="${item.id}">×</button></td>
+                        </tr>
+                    `;
+                });
+                
+                cartHTML += `
+                        </tbody>
+                    </table>
+                    
+                    <div class="cart-total">
+                        Total: <span class="total-amount" id="cart-total">P${total.toFixed(2)}</span>
+                    </div>
+                    
+                    <div class="cart-actions">
+                        <a href="products.html" class="btn btn-continue">Continue Shopping</a>
+                        <a href="checkout.html" class="btn btn-checkout">Proceed to Checkout</a>
+                    </div>
+                `;
+                
+                cartContent.innerHTML = cartHTML;
+                
+                // Add event listeners for quantity controls
+                document.querySelectorAll('.quantity-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const id = parseInt(e.target.dataset.id);
+                        const item = cart.find(item => item.id === id);
+                        
+                        if (e.target.classList.contains('minus')) {
+                            if (item.quantity > 1) {
+                                item.quantity--;
+                            }
+                        } else if (e.target.classList.contains('plus')) {
+                            item.quantity++;
+                        }
+                        
+                        updateCart();
+                    });
+                });
+                
+                // Add event listeners for quantity inputs
+                document.querySelectorAll('.quantity-input').forEach(input => {
+                    input.addEventListener('change', (e) => {
+                        const id = parseInt(e.target.dataset.id);
+                        const item = cart.find(item => item.id === id);
+                        const newQuantity = parseInt(e.target.value) || 1;
+                        
+                        item.quantity = newQuantity > 0 ? newQuantity : 1;
+                        updateCart();
+                    });
+                });
+                
+                // Add event listeners for remove buttons
+                document.querySelectorAll('.remove-item').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const id = parseInt(e.target.dataset.id);
+                        cart = cart.filter(item => item.id !== id);
+                        updateCart();
+                    });
+                });
+            }
             
-            // Update total
-            cartTotalElement.textContent = `₱${total.toFixed(2)}`;
-            
-            // Update cart count
-            const itemCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-            document.querySelector('.cart-count').textContent = itemCount;
-            
-            // Save to localStorage
-            localStorage.setItem('cart', JSON.stringify(cartItems));
-            localStorage.setItem('cartCount', itemCount);
-        }
-        
-        // Initialize the cart on page load
-        document.addEventListener('DOMContentLoaded', renderCart);
+            function updateCart() {
+                // Save to localStorage
+                localStorage.setItem('fabrixCart', JSON.stringify(cart));
+                
+                // Re-render cart
+                renderCart();
+            }
+        });
     </script>
 </body>
 </html>
