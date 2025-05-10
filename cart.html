@@ -193,34 +193,6 @@
       align-items: center;
       gap: 10px;
     }
-    .cart-notification {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: #8d111c;
-    color: white;
-    padding: 15px 20px;
-    border-radius: 4px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    transform: translateY(100px);
-    opacity: 0;
-    transition: all 0.3s ease;
-    z-index: 1000;
-}
-
-.cart-notification.show {
-    transform: translateY(0);
-    opacity: 1;
-}
-
-.cart-notification a {
-    color: white;
-    text-decoration: underline;
-    font-weight: 600;
-}
     
     .quantity-btn {
       width: 30px;
@@ -386,6 +358,35 @@
       100% { transform: scale(1); }
     }
     
+    .cart-notification {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--primary);
+      color: white;
+      padding: 15px 20px;
+      border-radius: 4px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+    
+    .cart-notification.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    
+    .cart-notification a {
+      color: white;
+      text-decoration: underline;
+      font-weight: 600;
+    }
+    
     @media (max-width: 768px) {
       .header-container {
         padding: 15px 20px;
@@ -428,45 +429,11 @@
   </header>
 
   <main>
-    <div id="cart-items-container" class="cart-items">
-    <!-- Empty cart message (shown by default) -->
-    <div id="empty-cart-message" class="empty-cart">
-        <div class="empty-cart-icon">
-            <i class="fas fa-shopping-cart"></i>
-        </div>
-        <h2>Your cart is empty</h2>
-        <p>Looks like you haven't added anything to your cart yet</p>
-        <a href="products.html" class="btn">Continue Shopping</a>
-    </div>
-    
-    <!-- Cart items will be inserted here by JavaScript -->
-</div>
-
-<div id="cart-summary-container">
-    <div class="cart-summary">
-        <h2 class="summary-title">Order Summary</h2>
-        <div id="cart-summary">
-            <div class="summary-row">
-                <span>Subtotal</span>
-                <span id="subtotal">₱0.00</span>
-            </div>
-            <div class="summary-row">
-                <span>Shipping</span>
-                <span id="shipping">Free</span>
-            </div>
-            <div class="summary-row cart-total">
-                <span>Total</span>
-                <span id="total">₱0.00</span>
-            </div>
-        </div>
-        <button class="btn checkout-btn">Proceed to Checkout</button>
-    </div>
-</div>
     <div class="cart-container">
       <h1 class="cart-title">Your Shopping Cart</h1>
       
       <div id="cart-items-container" class="cart-items">
-        <!-- Empty cart state (shown by default, hidden by JavaScript when items exist) -->
+        <!-- Empty cart state -->
         <div id="empty-cart-message" class="empty-cart">
           <div class="empty-cart-icon">
             <i class="fas fa-shopping-cart"></i>
@@ -475,6 +442,7 @@
           <p>Looks like you haven't added anything to your cart yet</p>
           <a href="products.html" class="btn">Continue Shopping</a>
         </div>
+        <!-- Cart items will be inserted here by JavaScript -->
       </div>
       
       <div id="cart-summary-container">
@@ -483,7 +451,7 @@
           <div id="cart-summary">
             <div class="summary-row">
               <span>Subtotal</span>
-              <span id="subtotal">P0.00</span>
+              <span id="subtotal">₱0.00</span>
             </div>
             <div class="summary-row">
               <span>Shipping</span>
@@ -491,7 +459,7 @@
             </div>
             <div class="summary-row cart-total">
               <span>Total</span>
-              <span id="total">P0.00</span>
+              <span id="total">₱0.00</span>
             </div>
           </div>
           <button class="btn checkout-btn">Proceed to Checkout</button>
@@ -508,23 +476,13 @@
       <p>&copy; <span id="current-year">2025</span> Fabrix Fashion. All rights reserved.</p>
     </div>
   </footer>
+
+  <!-- Load cart.js -->
   <script src="js/cart.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      document.addEventListener('click', function(e) {
-        if (e.target.classList.contains('add-to-cart')) {
-          const productCard = e.target.closest('.product-card');
-          const product = {
-            id: productCard.querySelector('img').src.split('/').pop().split('.')[0],
-            name: productCard.querySelector('h3').textContent,
-            price: productCard.querySelector('.price').textContent, // "P399.99"
-            image: productCard.querySelector('img').src
-          };
-          addToCart(product); // Uses the global function from cart.js
-        }
-      });
-    });
-  </script>
   
+  <!-- Auto-update copyright year -->
+  <script>
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
