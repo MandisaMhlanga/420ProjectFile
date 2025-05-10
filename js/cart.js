@@ -22,8 +22,8 @@ document.addEventListener('DOMContentLoaded', function() {
         
         if (cart.length === 0) {
             if (emptyMsg) emptyMsg.style.display = 'block';
-            document.getElementById('subtotal').textContent = '₱0.00';
-            document.getElementById('total').textContent = '₱0.00';
+            document.getElementById('subtotal').textContent = 'P0.00';
+            document.getElementById('total').textContent = 'P0.00';
             return;
         }
         
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <img src="${item.image}" alt="${item.name}" class="cart-item-image">
                     <div class="cart-item-details">
                         <h3 class="cart-item-name">${item.name}</h3>
-                        <p class="cart-item-price">₱${item.price.toFixed(2)}</p>
+                        <p class="cart-item-price">P${item.price.toFixed(2)}</p>
                         <div class="cart-item-actions">
                             <div class="cart-item-quantity">
                                 <button class="quantity-btn minus-btn" data-id="${item.id}">-</button>
@@ -53,8 +53,8 @@ document.addEventListener('DOMContentLoaded', function() {
             `;
         });
         
-        document.getElementById('subtotal').textContent = `₱${subtotal.toFixed(2)}`;
-        document.getElementById('total').textContent = `₱${subtotal.toFixed(2)}`;
+        document.getElementById('subtotal').textContent = `P${subtotal.toFixed(2)}`;
+        document.getElementById('total').textContent = `P${subtotal.toFixed(2)}`;
     }
     
     // Handle cart interactions
