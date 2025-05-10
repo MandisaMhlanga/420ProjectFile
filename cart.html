@@ -319,7 +319,7 @@
             </div>
         </section>
     </main>
-<script src="js/cart.js"></script>
+
     <footer class="site-footer">
         <p>&copy; <span id="current-year">2025</span> Fabrix Fashion. All rights reserved.</p>
     </footer>
@@ -346,14 +346,14 @@
                 
                 if (cart.length === 0) {
                     // Show empty cart message
-                    cartContent.innerHTML = 
+                    cartContent.innerHTML = `
                         <div class="empty-cart">
                             <div class="empty-cart-icon">🛒</div>
                             <h3>Your cart is empty</h3>
                             <p>Looks like you haven't added anything to your cart yet</p>
                             <a href="products.html" class="btn">Continue Shopping</a>
                         </div>
-                    ;
+                    `;
                     return;
                 }
                 
@@ -365,7 +365,7 @@
                 }, 0);
                 
                 // Generate cart HTML
-                let cartHTML = 
+                let cartHTML = `
                     <table class="cart-table">
                         <thead>
                             <tr>
@@ -377,13 +377,13 @@
                             </tr>
                         </thead>
                         <tbody id="cart-items">
-                ;
+                `;
                 
                 cart.forEach(item => {
                     const price = parseFloat(item.price.replace(/[^0-9.]/g, ''));
                     const subtotal = price * item.quantity;
                     
-                    cartHTML += 
+                    cartHTML += `
                         <tr data-id="${item.id}">
                             <td>
                                 <div class="cart-item-info">
@@ -402,10 +402,10 @@
                             <td>P${subtotal.toFixed(2)}</td>
                             <td><button class="remove-item" data-id="${item.id}">×</button></td>
                         </tr>
-                    ;
+                    `;
                 });
                 
-                cartHTML += 
+                cartHTML += `
                         </tbody>
                     </table>
                     
@@ -417,7 +417,7 @@
                         <a href="products.html" class="btn btn-continue">Continue Shopping</a>
                         <a href="payment.html" class="btn btn-checkout">Proceed to Checkout</a>
                     </div>
-                ;
+                `;
                 
                 cartContent.innerHTML = cartHTML;
                 
@@ -461,15 +461,12 @@
                 });
             }
             
-           function updateCart() {
-    localStorage.setItem('fabrixCart', JSON.stringify(cart));
-
-    // Update cart count immediately
-    const cartCountElement = document.querySelector('.cart-count');
-    const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
-    cartCountElement.textContent = totalItems;
-
-    renderCart();
+            function updateCart() {
+                // Save to localStorage
+                localStorage.setItem('fabrixCart', JSON.stringify(cart));
+                
+                // Re-render cart
+                renderCart();
             }
         });
     </script>
