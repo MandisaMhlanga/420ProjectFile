@@ -1,22 +1,20 @@
-// cart.js - Complete working solution
+// cart.js - Complete Working Solution
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize cart from localStorage or create empty array
+    // Load cart from localStorage
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     
     // Update cart count in header
     function updateCartCount() {
-        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        const count = cart.reduce((total, item) => total + item.quantity, 0);
         document.querySelectorAll('.cart-count').forEach(el => {
-            el.textContent = totalItems;
+            el.textContent = count;
         });
     }
     
-    // Render cart items on cart page
+    // Render cart items
     function renderCart() {
         const container = document.getElementById('cart-items-container');
         const emptyMsg = document.getElementById('empty-cart-message');
-        const subtotalEl = document.getElementById('subtotal');
-        const totalEl = document.getElementById('total');
         
         if (!container) return;
         
@@ -24,8 +22,8 @@ document.addEventListener('DOMContentLoaded', function() {
         
         if (cart.length === 0) {
             if (emptyMsg) emptyMsg.style.display = 'block';
-            if (subtotalEl) subtotalEl.textContent = '₱0.00';
-            if (totalEl) totalEl.textContent = '₱0.00';
+            document.getElementById('subtotal').textContent = '₱0.00';
+            document.getElementById('total').textContent = '₱0.00';
             return;
         }
         
@@ -34,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let subtotal = 0;
         cart.forEach(item => {
             subtotal += item.price * item.quantity;
-            const itemHTML = `
+            container.innerHTML += `
                 <div class="cart-item">
                     <img src="${item.image}" alt="${item.name}" class="cart-item-image">
                     <div class="cart-item-details">
@@ -43,59 +41,55 @@ document.addEventListener('DOMContentLoaded', function() {
                         <div class="cart-item-actions">
                             <div class="cart-item-quantity">
                                 <button class="quantity-btn minus-btn" data-id="${item.id}">-</button>
-                                <span class="quantity">${item.quantity}</span>
+                                <span>${item.quantity}</span>
                                 <button class="quantity-btn plus-btn" data-id="${item.id}">+</button>
                             </div>
                             <button class="remove-btn" data-id="${item.id}">
-                                <i class="fas fa-trash-alt"></i> Remove
+                                <i class="fas fa-trash"></i> Remove
                             </button>
                         </div>
                     </div>
                 </div>
             `;
-            container.insertAdjacentHTML('beforeend', itemHTML);
         });
         
-        if (subtotalEl) subtotalEl.textContent = `₱${subtotal.toFixed(2)}`;
-        if (totalEl) totalEl.textContent = `₱${subtotal.toFixed(2)}`;
+        document.getElementById('subtotal').textContent = `₱${subtotal.toFixed(2)}`;
+        document.getElementById('total').textContent = `₱${subtotal.toFixed(2)}`;
     }
     
-    // Handle quantity changes and removal
+    // Handle cart interactions
     function handleCartEvents() {
         document.addEventListener('click', function(e) {
-            // Handle minus button
+            // Quantity decrease
             if (e.target.classList.contains('minus-btn')) {
-                const id = e.target.getAttribute('data-id');
-                const item = cart.find(item => item.id === id);
-                if (item) {
-                    item.quantity = Math.max(1, item.quantity - 1);
-                    localStorage.setItem('cart', JSON.stringify(cart));
-                    renderCart();
-                    updateCartCount();
-                }
+                const id = e.target.dataset.id;
+                const item = cart.find(i => i.id === id);
+                if (item) item.quantity = Math.max(1, item.quantity - 1);
+                saveCart();
             }
             
-            // Handle plus button
+            // Quantity increase
             if (e.target.classList.contains('plus-btn')) {
-                const id = e.target.getAttribute('data-id');
-                const item = cart.find(item => item.id === id);
-                if (item) {
-                    item.quantity += 1;
-                    localStorage.setItem('cart', JSON.stringify(cart));
-                    renderCart();
-                    updateCartCount();
-                }
+                const id = e.target.dataset.id;
+                const item = cart.find(i => i.id === id);
+                if (item) item.quantity += 1;
+                saveCart();
             }
             
-            // Handle remove button
+            // Remove item
             if (e.target.classList.contains('remove-btn')) {
-                const id = e.target.getAttribute('data-id');
-                cart = cart.filter(item => item.id !== id);
-                localStorage.setItem('cart', JSON.stringify(cart));
-                renderCart();
-                updateCartCount();
+                const id = e.target.dataset.id;
+                cart = cart.filter(i => i.id !== id);
+                saveCart();
             }
         });
+    }
+    
+    // Save cart to localStorage
+    function saveCart() {
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCartCount();
+        renderCart();
     }
     
     // Initialize cart
@@ -103,12 +97,12 @@ document.addEventListener('DOMContentLoaded', function() {
     renderCart();
     handleCartEvents();
     
-    // Make addToCart available globally
+    // Global function to add items
     window.addToCart = function(product) {
-        // Convert price from "P399.99" to 399.99
-        const numericPrice = parseFloat(product.price.replace(/[^0-9.]/g, ''));
+        // Convert price from "P399.99" to number
+        const price = parseFloat(product.price.replace(/[^0-9.]/g, ''));
         
-        // Check if item already exists in cart
+        // Check if item exists
         const existingItem = cart.find(item => item.id === product.id);
         if (existingItem) {
             existingItem.quantity += 1;
@@ -116,19 +110,17 @@ document.addEventListener('DOMContentLoaded', function() {
             cart.push({
                 id: product.id,
                 name: product.name,
-                price: numericPrice,
+                price: price,
                 image: product.image,
                 quantity: 1
             });
         }
         
-        // Save to localStorage and update UI
-        localStorage.setItem('cart', JSON.stringify(cart));
-        updateCartCount();
+        saveCart();
         
         // Show notification
         const notification = document.createElement('div');
-        notification.className = 'cart-notification';
+        notification.className = 'cart-notification show';
         notification.innerHTML = `
             <i class="fas fa-check-circle"></i>
             <span>Added ${product.name} to cart</span>
@@ -136,7 +128,6 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
         document.body.appendChild(notification);
         
-        setTimeout(() => notification.classList.add('show'), 10);
         setTimeout(() => {
             notification.classList.remove('show');
             setTimeout(() => notification.remove(), 300);
